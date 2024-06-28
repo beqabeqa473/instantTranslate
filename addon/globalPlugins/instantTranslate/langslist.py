@@ -11,20 +11,47 @@ import addonHandler
 addonHandler.initTranslation()
 
 def g(code):
-	"""Return an NVDA language description for code, if one is available. Otherwise, return the one from needed_codes. If that fails, return the code."""
+	"""Return a description for the language code passed as parameter. The first found code is returned.
+	The check order is the following:
+	- the code in the forced codes list, i.e. codes for which NVDA/Windows do not return a satisfactory description
+	- the code is in NVDA/Windows language description
+	- the code in the list of needed codes, i.e. codes not available in some versions of Windows
+	If all these checks fail, return the code.
+	"""
+	if code in forced_codes:
+		return forced_codes[code]
 	res = getLanguageDescription(code)
 	if res is not None: return res
 	if code in needed_codes:
 		return needed_codes[code]
 	return code
 
+forced_codes = {
+	# Translators: The name of a language supported by this add-on.
+	"ckb": _("Kurdish (Sorani)"),
+}
+
 needed_codes = {
 	# Translators: An option to automatically detect source language for translation.
 	"auto":_("Automatically detect language"),
 	# Translators: The name of a language supported by this add-on.
+	"ak": _("Twi (Akan)"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"ay": _("Aymara"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"bho": _("Bhojpuri"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"bm":_("Bambara"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
 	"ceb":_("Cebuano"),
 	# Translators: The name of a language supported by this add-on.
+	"doi": _("Dogri"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"ee": _("Ewe"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
 	"eo":_("Esperanto"),
+	# Translators: The name of a language supported by this add-on.
+	"gom": _("Konkani"),  # Missing, tested on Windows 10 22H2
 	# Translators: The name of a language supported by this add-on.
 	"haw":_("Hawaiian"),
 	# Translators: The name of a language supported by this add-on.
@@ -32,13 +59,27 @@ needed_codes = {
 	# Translators: The name of a language supported by this add-on.
 	"ht":_("Creole Haiti"),
 	# Translators: The name of a language supported by this add-on.
+	"ilo": _("Ilocano"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
 	"jv":_("Javanese"),
+	# Translators: The name of a language supported by this add-on.
+	"kri": _("Krio"),  # Missing, tested on Windows 10 22H2
 	# Translators: The name of a language supported by this add-on.
 	"ku":_("Kurdish"),
 	# Translators: The name of a language supported by this add-on.
 	"la":_("Latin"),
 	# Translators: The name of a language supported by this add-on.
+	"lg":  _("Luganda"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"ln": _("Lingala"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"lus": _("Mizo"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
+	"mai": _("Maithili"),  # Missing, tested on Windows 10 22H2
+	# Translators: The name of a language supported by this add-on.
 	"mg":_("Malagasy"),
+	# Translators: The name of a language supported by this add-on.
+	"mni-Mtei": _("Meiteilon (Manipuri)"),  # Missing, tested on Windows 10 22H2
 	# Translators: The name of a language supported by this add-on.
 	"my":_("Myanmar (Burmese)"),
 	# Translators: The name of a language supported by this add-on.
@@ -64,20 +105,29 @@ needed_codes = {
 langcodes = [
 	"auto",
 	"af",
+	"ak",
 	"am",
 	"ar",
+	"as",
+	"ay",
 	"az",
 	"be",
 	"bg",
+	"bho",
+	"bm",
 	"bn",
 	"bs",
 	"ca",
 	"ceb",
+	"ckb",
 	"co",
 	"cs",
 	"cy",
 	"da",
 	"de",
+	"doi",
+	"dv",
+	"ee",
 	"el",
 	"en",
 	"eo",
@@ -86,11 +136,14 @@ langcodes = [
 	"eu",
 	"fa",
 	"fi",
+	"fil",
 	"fr",
 	"fy",
 	"ga",
 	"gd",
 	"gl",
+	"gn",
+	"gom",
 	"gu",
 	"ha",
 	"haw",
@@ -103,6 +156,7 @@ langcodes = [
 	"hy",
 	"id",
 	"ig",
+	"ilo",
 	"is",
 	"it",
 	"ja",
@@ -112,18 +166,24 @@ langcodes = [
 	"km",
 	"kn",
 	"ko",
+	"kri",
 	"ku",
 	"ky",
 	"la",
 	"lb",
+	"lg",
+	"ln",
 	"lo",
 	"lt",
+	"lus",
 	"lv",
+	"mai",
 	"mg",
 	"mi",
 	"mk",
 	"ml",
 	"mn",
+	"mni-Mtei",
 	"mr",
 	"ms",
 	"mt",
@@ -131,15 +191,19 @@ langcodes = [
 	"ne",
 	"nl",
 	"no",
+	"nso",
 	"ny",
+	"om",
 	"or",
 	"pa",
 	"pl",
 	"ps",
 	"pt",
+	"qu",
 	"ro",
 	"ru",
 	"rw",
+	"sa",
 	"sd",
 	"si",
 	"sk",
@@ -157,9 +221,11 @@ langcodes = [
 	"te",
 	"tg",
 	"th",
+	"ti",
 	"tk",
 	"tl",
 	"tr",
+	"ts",
 	"tt",
 	"ug",
 	"uk",
